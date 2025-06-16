@@ -1,0 +1,14 @@
+# Requirements for the Django project
+django>4.2,<4.3
+djangorestframework>=3.14,<3.15
+
+# Database driver
+psycopg2>=2.9,<2.10
+
+# GraphQL support
+strawberry-graphql-django>=0.24,<0.25
+graphql-core>=3.2,<3.3
+strawberry-graphql>=0.24,<0.25
+
+# api documentation
+drf-spectacular>=0.29,<0.30
