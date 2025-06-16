@@ -1,26 +1,33 @@
-# base image
-FROM  python:3.12-alpine
+# Use official Python image
+FROM python:3.12-alpine
+
 
 LABEL maintainer="ali.ahadi.official@gmail.com"
 
+
+# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the requirements file into the container
-COPY requirements.txt .
+# Copy project files
+COPY requirements.txt . 
 
-COPY /core /app/
+# Copy core application files
+COPY /app /app/
 
-# Install the dependencies
+
+# Install system dependencies required for psycopg2
+
+
+# Copy the rest of the application files
+
+
+# Install dependencies
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt && \
-    adduser \
-        --disabled-password \
-        --no-create-home \
-        django-user
+    pip install --default-timeout=100 -r requirements.txt && \
+    adduser --disabled-password --no-create-home django-user
 
-
-USER django-user        
+USER django-user     
