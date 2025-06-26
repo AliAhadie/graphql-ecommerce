@@ -28,8 +28,6 @@ class Mutation:
             name=input.name,
             slug=input.slug,
             description=input.description,
-            is_digital=input.is_digital,
-            is_active=input.is_active,
             price=input.price,
             category=category,
         )

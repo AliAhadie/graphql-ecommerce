@@ -2,6 +2,7 @@ import strawberry
 from strawberry import auto
 import strawberry_django
 from inventory.models import Category,Product
+from typing import Optional
 
 
 @strawberry_django.input(Category)
@@ -17,7 +18,7 @@ class ProductInput:
     name: auto
     slug: auto
     description: auto
-    is_digital: auto
-    is_active: auto
+    is_digital: Optional[bool]=None
+    is_active: Optional[bool]=None
     price: auto
     category_id: int
