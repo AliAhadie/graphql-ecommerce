@@ -1,11 +1,13 @@
 import strawberry
+import strawberry_django
+from strawberry import auto
+from inventory.models import Category
 
 
-@strawberry.type
+@strawberry_django.type(Category)
 class CategoryType:
-    id: strawberry.ID
-    parent_id: int | None
-    name: str
-    slug: str
-    is_active: bool
-    level: int
+    id: auto
+    name: auto
+    slug: auto
+    is_active: auto
+    level: auto
