@@ -1,7 +1,7 @@
 import strawberry
 import strawberry_django
 from strawberry import auto
-from inventory.models import Category, Product
+from inventory.models import Category, Product,StockManagement
 
 
 @strawberry_django.type(Category)
@@ -26,3 +26,15 @@ class ProductType:
     updated_at: auto
     price: auto
     category: CategoryType
+
+@strawberry_django.type(StockManagement)
+class StockManagementType:
+    id: auto
+    quantity: auto
+    last_checked_at: auto
+
+@strawberry.type
+class ProductWithStockType:
+    product: ProductType
+    stock: StockManagementType
+    category: CategoryType    
