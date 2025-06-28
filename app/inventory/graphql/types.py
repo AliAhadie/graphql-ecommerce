@@ -38,3 +38,4 @@ class ProductWithStockType:
     product: ProductType
     stock: StockManagementType
     category: CategoryType    
+

@@ -1,6 +1,6 @@
 import strawberry
 from inventory.models import Category, Product, StockManagement
-from inventory.graphql.inputs import CategoryInput, ProductInput, ProductWithStockInput
+from inventory.graphql.inputs import CategoryInput, ProductInput, ProductWithStockInput,UpdateProductInput,PartialUpdateProductInput
 from inventory.graphql.types import CategoryType, ProductType, ProductWithStockType
 import datetime
 from django.db import transaction
@@ -61,3 +61,50 @@ class Mutation:
             )
 
             return ProductWithStockType(product=product, stock=stock, category=category)
+    @strawberry.mutation
+    def update_product(self,input:UpdateProductInput) -> ProductType:
+        with transaction.atomic():
+            try:
+                product=Product.objects.get(id=input.id)
+            except Product.DoesNotExist:
+                raise ValueError("Invalid product ID provided.")
+
+            try:
+                category=Category.objects.get(id=input.category_id)
+            except Category.DoesNotExist:
+                raise ValueError("Invalid category ID provided.")
+
+            product.name = input.name
+            product.slug = input.slug
+            product.description = input.description
+            product.is_digital = input.is_digital
+            product.is_active = input.is_active
+            product.price = input.price
+            product.category_id = input.category_id
+            product.save()
+
+            return product
+    @strawberry.mutation
+    def partial_product_update(self,input:PartialUpdateProductInput)->ProductType:
+        with transaction.atomic():
+            try:
+                product=Product.objects.get(id=input.id)
+            except Product.DoesNotExist:
+                raise ValueError("Invalid product ID provided.")
+            if input.name is not None:
+                product.name = input.name
+            if input.slug is not None:
+                product.slug = input.slug
+            if input.description is not None:
+                product.description = input.description
+            if input.is_digital is not None:
+                product.is_digital = input.is_digital
+            if input.is_active is not None:
+                product.is_active = input.is_active
+            if input.price is not None:
+                product.price = input.price
+            if input.category_id is not None:
+                product.category_id = input.category_id
+            product.save()
+
+            return product
