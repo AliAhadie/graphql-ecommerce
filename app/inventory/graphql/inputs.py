@@ -58,3 +58,13 @@ class PartialUpdateProductInput:
     is_active: bool | None = None
     price: Decimal | None = None
     category_id: int | None = None
+
+@strawberry.input
+class CategoryFilter:
+    is_active: bool |None=None
+    name: str |None=None
+
+@strawberry.input
+class CategoryOrderFilter:
+    field:str 
+    direction:str  
